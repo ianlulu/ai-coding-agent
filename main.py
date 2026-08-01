@@ -3,6 +3,7 @@ import argparse
 from dotenv import load_dotenv
 from openai import OpenAI
 
+
 load_dotenv() # load environment variables from .env
 api_key = os.environ.get("OPENROUTER_API_KEY") # read API key
 if api_key is None:
