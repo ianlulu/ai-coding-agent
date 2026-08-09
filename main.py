@@ -27,7 +27,7 @@ client = OpenAI(
 )
 
 def main():
-    # print("Hello from ai-coding-agent!")
+    #print("Hello from ai-coding-agent!")
     #model: str = "openrouter/free" # specific LLM being used
     model = "qwythos-9b-v2"
     messages: list[dict] = [
