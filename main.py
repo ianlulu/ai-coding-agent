@@ -1,7 +1,9 @@
 import os
 import argparse
+
 from dotenv import load_dotenv
 from openai import OpenAI
+from prompts import SYSTEM_PROMPT
 
 
 load_dotenv() # load environment variables from .env
@@ -20,24 +22,26 @@ args = parser.parse_args()
 
 # create an OpenAI client:
 client = OpenAI(
-     #base_url="https://openrouter.ai/api/v1",
-     #api_key=api_key,
-     base_url="http://192.168.0.64:1234/v1",
-     api_key="lmstudio",
+     base_url="https://openrouter.ai/api/v1",
+     api_key=api_key,
+     #base_url="http://192.168.0.64:1234/v1",
+     #api_key="lmstudio",
 )
 
 def main():
     #print("Hello from ai-coding-agent!")
-    #model: str = "openrouter/free" # specific LLM being used
-    model = "qwythos-9b-v2"
-    messages: list[dict] = [
-         {
-              "role": "user",
-              "content": args.user_prompt,
-         },
+    model: str = "openrouter/free" # specific LLM being used
+    #model = "qwythos-9b-v2"
+    messages: list = [
+          {"role": "system", "content": SYSTEM_PROMPT},
+          {"role": "user", "content": args.user_prompt},
     ]
 
-    chat = client.chat.completions.create(model=model, messages=messages)
+    chat = client.chat.completions.create(
+         model=model,
+         messages=messages,
+         temperature=0,
+     )
 
     if chat.usage is not None:
         if args.verbose is True:
