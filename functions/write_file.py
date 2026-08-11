@@ -3,6 +3,32 @@
 import os
 
 
+schema_write_file = {
+    "type": "function",
+    "function": {
+        "name": "write_file",
+        "description": "Write content into a file at the given working directory, file path, and content",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "directory": {
+                    "type": "string",
+                    "description": "Directory path to list files from, relative to the working directory (default is the working directory itself)",
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "The file path to where the content will be written",
+                },
+                "content": {
+                    "type": "string",
+                    "description": "The content to be written in a file",
+                }
+            },
+            "required": ["file_path", "content",],
+        },
+    },
+}
+
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     try:
         working_dir_abs_path: str = os.path.abspath(working_directory) # get an absolute path (i.e. from root `/`) from a relative path (i.e. `~/dev`)

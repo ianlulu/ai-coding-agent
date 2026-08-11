@@ -1,9 +1,11 @@
 import os
 import argparse
+import json
 
 from dotenv import load_dotenv
 from openai import OpenAI
 from prompts import SYSTEM_PROMPT
+from call_function import available_functions
 
 
 load_dotenv() # load environment variables from .env
@@ -40,6 +42,7 @@ def main():
     chat = client.chat.completions.create(
          model=model,
          messages=messages,
+         tools=available_functions, # functions written for the agent
          temperature=0,
      )
 
@@ -51,9 +54,15 @@ def main():
                   f"Response tokens: {chat.usage.completion_tokens}"
                )
              
+        message = chat.choices[0].message
+        if message.tool_calls:
+          for tool_call in message.tool_calls:
+               function_args = json.loads(tool_call.function.arguments or "{}")
+               print(f"Calling function: {tool_call.function.name}({function_args})")
+             
         print(
              "Response:\n"
-             f"{chat.choices[0].message.content}"
+             f"{message.content}"
           )
 
           

@@ -5,6 +5,32 @@ import subprocess
 from subprocess import CompletedProcess
 
 
+schema_run_python_file = {
+    "type": "function",
+    "function": {
+        "name": "run_python_file",
+        "description": "Run or execute a Python file given a working directory, file path, and arguments",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "directory": {
+                    "type": "string",
+                    "description": "Directory path to list files from, relative to the working directory (default is the working directory itself)",
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "The file path to where the Python file to be executed lives",
+                },
+                "args": {
+                    "type": "array",
+                    "description": "Optional arguments to be passed to the function. The type is an array whose items are strings"
+                },
+            },
+            "required": "file_path",
+        },
+    },
+}
+
 def run_python_file(
     working_directory: str, file_path: str, args: list[str] | None = None
 ) -> str:

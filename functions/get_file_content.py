@@ -4,6 +4,28 @@ import os
 from config import MAX_CHARS
 
 
+schema_get_file_content = {
+    "type": "function",
+    "function": {
+        "name": "get_file_content",
+        "description": "Get or read the contents of a file returned as a string given a working directory and a file path",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "directory": {
+                    "type": "string",
+                    "description": "Directory path to get files from, relative to the working directory (default is the working directory itself)",
+                },
+                "file_path": {
+                    "type": "string",
+                    "description": "The file path to where file to be read lives",
+                },
+            },
+            "required": "file_path",
+        },
+    },
+}
+
 def get_file_content(working_directory: str, file_path: str) -> str:
     try:
         working_dir_abs_path: str = os.path.abspath(working_directory) # absolute path of the working directory i.e. starting with root `/` compared to a relative path
