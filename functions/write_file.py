@@ -11,7 +11,7 @@ schema_write_file = {
         "parameters": {
             "type": "object",
             "properties": {
-                "directory": {
+                "working_directory": {
                     "type": "string",
                     "description": "Directory path to list files from, relative to the working directory (default is the working directory itself)",
                 },

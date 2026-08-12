@@ -12,7 +12,7 @@ schema_get_file_content = {
         "parameters": {
             "type": "object",
             "properties": {
-                "directory": {
+                "working_directory": {
                     "type": "string",
                     "description": "Directory path to get files from, relative to the working directory (default is the working directory itself)",
                 },
